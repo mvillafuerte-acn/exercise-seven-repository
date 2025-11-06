@@ -1,6 +1,61 @@
 <mvc:View controllerName="sapips.training.odata.controller.Main"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
+    <Page id="page" title="{i18n>title}">    
+        <Table
+            id="productTable"
+            items="{
+                path: '/Products',
+                sorter: {
+                    path: 'ProductName',
+                    descending: false
+                },
+                filters: [
+                    {
+                        path: 'Discontinued',
+                        operator: 'EQ',
+                        value1: false
+                    }
+                ]
+            }"
+            inset="false"
+            headerText="{i18n>productTitle}"
+            headerLevel="H1"
+            growing="true"
+            growingThreshold="20"
+            mode="None"            
+        >        
+		<infoToolbar>
+			<OverflowToolbar id="oFlow1">
+				<Label text="{i18n>lblRange}" id="idRangeText"/>
+			</OverflowToolbar>
+		</infoToolbar>      		
+        <columns>
+            <Column id="itmCol0">
+                <Text text="{i18n>colProduct}" id="colProduct" />
+            </Column>
+            <Column id="itmCol1">
+                <Text text="{i18n>colSupplierID}" id="colSupplierID" />
+            </Column>
+            <Column id="itmCol2">
+                <Text text="{i18n>colPrice}" id="colPrice" />
+            </Column>
+        </columns>        	  
+        <items>
+            <ColumnListItem id="colItem">
+                <cells>
+                    <ObjectIdentifier
+                        id="itmProduct"
+                        title="{ProductName}"
+                        text="{i18n>productID} {ProductID}"/>                        
+                    <Text text="{SupplierID}" id="itmSupplier"/>
+                    <ObjectIdentifier
+                        id="itmPrice"
+                        title="{UnitPrice}"
+                        text="{QuantityPerUnit}"/>                                                    
+                </cells>
+            </ColumnListItem>
+        </items>
+        </Table>    
     </Page>
 </mvc:View>
